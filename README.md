@@ -1,35 +1,28 @@
 A package to bridge actions between ROS1 and ROS2. 
 
 **NOTE:**   
-- Currently supports forwarding goals from ROS1 (noetic) action client to ROS2 (foxy) action server
+- Currently supports forwarding goals from ROS1 (noetic) action client to ROS2 (humble) action server
 - As an example, implemented interfaces for the action bridge for FibonacciAction   
   and FollowJointTrajectoryAction  
 
-**Prerequisites:**  
 
-(*rosdep does not work properly with mixed ROS1 and ROS2 dependencies*)
 
-```
-sudo apt install ros-noetic-actionlib ros-noetic-actionlib-tutorials ros-noetic-control-msgs ros-noetic-roscpp ros-foxy-control-msgs ros-foxy-rclcpp ros-foxy-rclcpp-action ros-foxy-action-tutorials-interfaces
-```
+
 
 **How to build:**  
 
-Clone the repository in the `src` folder of your ROS2 workspace.
+> Follow the below link to install dependencies
+- [Using ROS1 Bridge Jammy Upstream](https://docs.ros.org/en/humble/How-To-Guides/Using-ros1_bridge-Jammy-upstream.html)
+
 ```
-git clone git@github.com:ipa-hsd/action_bridge.git -b foxy-devel
+source /opt/ros/humble/setup.bash
+colcon build --packages-select action_bridge
 ```
 
-Since `action_bridge` package depends on both ROS1 and ROS2, source both workspaces.
-```
-source /opt/ros/noetic/local_setup.bash
-source /opt/ros/foxy/local_setup.bash
-colcon build
-```
 Now you are ready to run the `action_bridge`!  
 Source this workspace to use the executeables built in the previous step. 
 ```
-source <path-to-workspace>/install/local_setup.bash
+source <path-to-workspace>/install/setup.bash
 ```
 4 example executables are available:
 - `action_bridge_fibonacci_1_2`
