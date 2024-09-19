@@ -50,16 +50,16 @@ public:
   ActionBridge_2_1(
       ros::NodeHandle ros1_node,
       rclcpp::Node::SharedPtr ros2_node,
-      const std::string action_name)
+      const std::string ros1_action_name, const std::string ros2_action_name)
       : ros1_node_(ros1_node), ros2_node_(ros2_node)
   {
-    client_ = std::make_shared<ROS1Client>(ros1_node, action_name);
+    client_ = std::make_shared<ROS1Client>(ros1_node, ros1_action_name);
 
     server_ = rclcpp_action::create_server<ROS2_T>(ros2_node_->get_node_base_interface(),
                                                    ros2_node_->get_node_clock_interface(),
                                                    ros2_node_->get_node_logging_interface(),
                                                    ros2_node_->get_node_waitables_interface(),
-                                                   action_name,
+                                                   ros2_action_name,
                                                    std::bind(&ActionBridge_2_1::handle_goal, this, std::placeholders::_1, std::placeholders::_2),
                                                    std::bind(&ActionBridge_2_1::handle_cancel, this, std::placeholders::_1),
                                                    std::bind(&ActionBridge_2_1::handle_accepted, this, std::placeholders::_1));
@@ -120,8 +120,18 @@ public:
 
   static int main(const std::string &action_name, int argc, char *argv[])
   {
+
+    
+
+    if (argc > 1) {
+      std::string
+    }
+    
     std::string node_name = "action_bridge_" + action_name;
     std::replace(node_name.begin(), node_name.end(), '/', '_');
+
+    std::string ros1_action_name = ;
+    std::string ros2_action_name = ;
     // ROS 1 node
     ros::init(argc, argv, node_name);
     ros::NodeHandle ros1_node;
