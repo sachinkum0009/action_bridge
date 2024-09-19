@@ -80,7 +80,7 @@ install(DIRECTORY include/
 )
 
 install(DIRECTORY launch/
-    DESTINATION launch/
+    DESTINATION share/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)

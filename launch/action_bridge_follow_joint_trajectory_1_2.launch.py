@@ -8,5 +8,5 @@ def generate_launch_description():
             name="action_bridge_follow_joint_trajectory_1_2",
             executable="action_bridge_follow_joint_trajectory_1_2",
             output="screen",
-            respawn="true")
+            respawn=True)
     ])
