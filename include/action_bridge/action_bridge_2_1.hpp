@@ -53,6 +53,7 @@ public:
       const std::string ros1_action_name, const std::string ros2_action_name)
       : ros1_node_(ros1_node), ros2_node_(ros2_node)
   {
+
     client_ = std::make_shared<ROS1Client>(ros1_node, ros1_action_name);
 
     server_ = rclcpp_action::create_server<ROS2_T>(ros2_node_->get_node_base_interface(),
@@ -121,17 +122,30 @@ public:
   static int main(const std::string &action_name, int argc, char *argv[])
   {
 
+    std::string ros1_action_name;
+    std::string ros2_action_name;
+
+    // print all argv arguments
+    for (int i = 0; i < argc; i++)
+    {
+      std::cout << "argv[" << i << "]: " << argv[i] << std::endl;
+    }
     
 
-    if (argc > 1) {
-      std::string
+    if (argc > 2) {
+      ros1_action_name  = argv[1];
+      ros2_action_name  = argv[2];
     }
+    else {
+      ros1_action_name = action_name;
+      ros2_action_name = action_name;
+    }
+
+    std::cout << "ros1 action name " << ros1_action_name << " and ros 2 action name: " << ros2_action_name << std::endl;
     
     std::string node_name = "action_bridge_" + action_name;
     std::replace(node_name.begin(), node_name.end(), '/', '_');
 
-    std::string ros1_action_name = ;
-    std::string ros2_action_name = ;
     // ROS 1 node
     ros::init(argc, argv, node_name);
     ros::NodeHandle ros1_node;
@@ -140,7 +154,7 @@ public:
     rclcpp::init(argc, argv);
     auto ros2_node = rclcpp::Node::make_shared(node_name);
 
-    ActionBridge_2_1<ROS1_T, ROS2_T> action_bridge(ros1_node, ros2_node, action_name);
+    ActionBridge_2_1<ROS1_T, ROS2_T> action_bridge(ros1_node, ros2_node, ros1_action_name, ros2_action_name);
 
     // // ROS 1 asynchronous spinner
     ros::AsyncSpinner async_spinner(0);
